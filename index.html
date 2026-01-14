@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Zevjoki | Jasa Joki Gaming</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+    --main:#00ffd5;
+    --dark:#0a0a0a;
+    --card:#151515;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:var(--dark);color:#fff;}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:radial-gradient(circle at top,#003333,#000);
+    padding:20px;
+}
+.hero h1{font-size:3rem;color:var(--main);}
+.hero p{margin:15px 0 25px;opacity:.85;}
+
+.btn{
+    padding:14px 28px;
+    border-radius:50px;
+    background:linear-gradient(135deg,var(--main),#0066ff);
+    color:#000;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
+}
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:70px 20px;
+}
+.section h2{
+    text-align:center;
+    color:var(--main);
+    margin-bottom:40px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:var(--card);
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 0 25px rgba(0,255,213,.08);
+}
+.card h3{color:var(--main);margin-bottom:15px;}
+.card ul{list-style:none;}
+.card ul li{padding:8px 0;border-bottom:1px solid #222;}
+.price{margin:15px 0;font-weight:bold;}
+
+.order-box{max-width:500px;margin:auto;}
+.order-box label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    font-size:14px;
+    opacity:.8;
+}
+.order-box input,
+.order-box select{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    background:#0f0f0f;
+    color:#fff;
+}
+
+.order-box button{width:100%;margin-top:25px;}
+
+.wa-float{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#25D366;
+    color:#000;
+    padding:15px 22px;
+    border-radius:50px;
+    font-weight:bold;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <div>
+        <h1>ZEVJOKI</h1>
+        <p>Jasa joki & Editing Gaming<br>Aman • Cepat • Profesional</p>
+    </div>
+</div>
+
+<!-- FREE FIRE -->
+<section class="section">
+<h2>🔥 JOKI CSR FREE FIRE</h2>
+<div class="grid">
+<div class="card">
+<h3>Harga Rank</h3>
+<ul>
+<li>GOLD — Rp 1.000</li>
+<li>PLATINUM — Rp 1.000</li>
+<li>DIAMOND — Rp 1.500</li>
+<li>MASTER — Rp 2.000</li>
+<li>ELITE MASTER — Rp 2.000</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- MOBILE LEGENDS -->
+<section class="section">
+<h2>⚔️ JOKI RANK MOBILE LEGENDS</h2>
+<div class="grid">
+<div class="card">
+<h3>Harga Rank</h3>
+<ul>
+<li>GRANDMASTER — Rp 2.500</li>
+<li>EPIC — Rp 3.000</li>
+<li>LEGEND — Rp 4.000</li>
+<li>MYTHIC — Rp 5.000</li>
+<li>MYTHIC HONOR — Rp 7.000</li>
+<li>MYTHIC GLORY — Rp 8.000</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- STUMBLE -->
+<section class="section">
+<h2>👑 Joki Crown Stumble Guys</h2>
+<div class="grid">
+<div class="card">
+<p class="price">Rp 2.000 / Crown</p>
+</div>
+</div>
+</section>
+
+<!-- JJ -->
+<section class="section">
+<h2>🎬 JJ Montage Mobile Legends</h2>
+<div class="grid">
+<div class="card">
+<p class="price">Rp 20.000 – Rp 80.000 / JJ</p>
+</div>
+</div>
+</section>
+
+<!-- ORDER -->
+<section class="section">
+<h2>📩 ORDER JOKI</h2>
+
+<div class="card order-box">
+
+<label>Jenis Order</label>
+<select id="jenis" onchange="updateRank()">
+<option value="FF">JOKI CS RANK FF</option>
+<option value="ML">JOKI RANK MOBILE LEGENDS</option>
+<option value="STUMBLE">JOKI CROWN STUMBLE GUYS</option>
+<option value="JJ">JJ MOBILE LEGENDS</option>
+</select>
+
+<label>Rank</label>
+<select id="rank" onchange="hitungTotal()"></select>
+
+<label>Jumlah Star / Crown</label>
+<input type="number" id="jumlah" placeholder="Contoh: 5" oninput="hitungTotal()">
+
+<label>Total Order</label>
+<input type="text" id="total" readonly>
+
+<button class="btn" onclick="orderWA()">Order via WhatsApp</button>
+
+</div>
+</section>
+
+<footer style="text-align:center;padding:25px;opacity:.6;">
+© 2026 ZEVJOKI
+</footer>
+
+<a class="wa-float" href="https://wa.me/6285602200819">💬 WhatsApp</a>
+
+<script>
+const harga = {
+    FF:{
+        "GOLD":1000,
+        "PLATINUM":1000,
+        "DIAMOND":1500,
+        "MASTER":2000,
+        "ELITE MASTER":2000
+    },
+    ML:{
+        "GRANDMASTER":2500,
+        "EPIC":3000,
+        "LEGEND":4000,
+        "MYTHIC":5000,
+        "MYTHIC HONOR":7000,
+        "MYTHIC GLORY":8000
+    },
+    STUMBLE:{
+        "CROWN":2000
+    },
+    JJ:{
+        "JJ VIDEO":20000
+    }
+};
+
+function updateRank(){
+    const jenis=document.getElementById("jenis").value;
+    const rank=document.getElementById("rank");
+    rank.innerHTML="";
+    for(let r in harga[jenis]){
+        let o=document.createElement("option");
+        o.value=r;
+        o.textContent=r+" — Rp "+harga[jenis][r].toLocaleString("id-ID");
+        rank.appendChild(o);
+    }
+    hitungTotal();
+}
+
+function hitungTotal(){
+    const jenis=document.getElementById("jenis").value;
+    const rank=document.getElementById("rank").value;
+    const j=document.getElementById("jumlah").value||0;
+    const total=harga[jenis][rank]*j;
+    document.getElementById("total").value="Rp "+total.toLocaleString("id-ID");
+}
+
+function orderWA(){
+    const jenis=document.getElementById("jenis").selectedOptions[0].text;
+    const rank=document.getElementById("rank").value;
+    const j=document.getElementById("jumlah").value;
+    const total=document.getElementById("total").value;
+
+    const text=`halo kak🙌 saya mau joki:
+
+Jenis: ${jenis}
+Rank: ${rank}
+Jumlah: ${j}
+Total: ${total}
+
+Terima kasih 🙏`;
+
+    window.open("https://wa.me/6285602200819?text="+encodeURIComponent(text));
+}
+
+updateRank();
+</script>
+
+</body>
+</html>
